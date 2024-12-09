@@ -1,51 +1,18 @@
 # Description
 
-Ce dépôt contient une implémentation de l'algorithme Fisher-SGD pour estimer les paramètres d’un modèle de blocs stochastiques (SBM). L'algorithme utilise JAX pour la différenciation automatique et les calculs efficaces. Il permet d’estimer les paramètres des SBM complexes grâce à une descente de gradient stochastique préconditionnée par la matrice d'information de Fisher.
-Structure du Dépôt
+Ce dépôt contient deux notebooks d'implémentation de l'algorithme Fisher-SGD pour estimer les paramètres d’un modèle de mélange gaussien (2 lois gaussiennes) et un modèle à effet mixte. Les gradients sont calculés analytiquement.
 
-    algos.py : Contient l'algorithme principal Fisher-SGD pour l'estimation des paramètres, ainsi que les fonctions d'aide pour les mises à jour itératives et la vérification de convergence.
+**Fisher Stochastic Gradient Descent** (Fisher SGD) est une variante de l'algorithme de Descente de Gradient Stochastique (SGD) utilisée pour l'estimation des paramètres. La principale innovation de Fisher SGD réside dans l'intégration du préconditionnement basé sur l'information de Fisher, une mesure de la quantité d'information qu'un observateur peut obtenir sur les paramètres du modèle à partir des données observées.
 
-    model.py : Définit la classe du modèle SBM avec des fonctions pour le calcul de la log-vraisemblance, des gradients et l'échantillonnage Gibbs des variables latentes.
+### Chaque notebook guide à travers les étapes suivantes :
 
-    many_estim.py : Génère des données synthétiques SBM et exécute plusieurs estimations pour comparer les résultats.
+    Simulation des Données : Génération de données synthétiques avec des paramètres connus.
+    Définition du Modèle : Implémentation des fonctions de log-vraisemblance et de gradient.
+    Échantillonnage des Variables Latentes : Utilisation de méthodes MCMC (Gibbs Sampling) pour les modèles avec variables latentes.
+    Estimation des Paramètres : Application de la Descente de Gradient Stochastique avec préconditionnement par l'information de Fisher.
+    Visualisation des Résultats : Suivi de la convergence des paramètres au cours des itérations.
 
-    plot1run.py : Produit des graphiques pour visualiser l’évolution des paramètres estimés au cours des itérations de Fisher-SGD. Les graphiques sont sauvegardés au format PDF.
+Veuillez lancer le code un par un.
 
-## Fonctionnalités Clés
+### Code Python qui utilise uniquement les modules: **tqdm** et **numpy**
 
-    Algorithme Fisher-SGD :
-        Estime les paramètres α (probabilités d’appartenance aux communautés) et π (probabilités de lien entre communautés).
-        Utilise le préconditionnement par la matrice d'information de Fisher pour améliorer la convergence.
-
-    Modèle SBM :
-        Prend en charge Q communautés (clusters).
-        Échantillonne les variables latentes avec un pas de Gibbs sampling.
-
-    Visualisation :
-        Génère des graphiques montrant l’évolution des paramètres au cours des itérations.
-        Identifie les phases de chauffage et de convergence.
-
-## Prérequis
-
-    Python 3.x
-    JAX pour la différenciation automatique et l'accélération GPU
-    Matplotlib pour le traçage des graphiques
-    Parametrization Cookbook pour la gestion des contraintes des paramètres
-    TQDM pour les barres de progression
-
-# Utilisation
-1. Générer des Données Synthétiques
-
-Exécutez le script many_estim.py pour générer des données synthétiques SBM et initialiser les paramètres :
-
-python many_estim.py
-
-2. Estimer les Paramètres avec Fisher-SGD
-
-Lancez le script plot1run.py pour effectuer l’estimation des paramètres avec Fisher-SGD et générer les graphiques d'évolution des paramètres :
-
-python plot1run.py
-
-3. Visualiser l’Évolution des Paramètres
-
-Une fois le script plot1run.py exécuté, les graphiques au format PDF seront sauvegardés dans le répertoire courant.
